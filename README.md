@@ -26,20 +26,6 @@ NOTE: for Windows users, please use a terminal that supports Linux commands. Her
 
 ## Getting Started
 
-After cloning, run:
-
-```
-npm install
-```
-
-To run the development server:
-
-```
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## Build + Deployment
 
 A Docker-Compose file is included, run:
@@ -48,6 +34,8 @@ A Docker-Compose file is included, run:
 docker-compose build
 docker-compose up
 ```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 
 ## Services
 
