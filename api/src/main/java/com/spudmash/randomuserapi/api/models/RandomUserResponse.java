@@ -22,6 +22,6 @@ public class RandomUserResponse {
         this.info = info;
     }
 
-    public User[] getUser() { return this.results; }
+    public User[] getResults() { return this.results; }
     public void setResults(User[] users) { this.results = users;}
 }

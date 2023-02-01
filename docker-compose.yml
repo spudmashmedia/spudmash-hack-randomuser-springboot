@@ -6,11 +6,11 @@ services:
       context: ./api
       dockerfile: ./Dockerfile
     ports:
-      - 3000:8080
+      - 5000:8080
 
   web:
     build:
       context: ./web
       dockerfile: ./Dockerfile
     ports:
-      - 5000:3000
+      - 3000:80

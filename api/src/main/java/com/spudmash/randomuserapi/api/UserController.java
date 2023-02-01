@@ -1,5 +1,6 @@
 package com.spudmash.randomuserapi.api;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,10 @@ public class UserController {
      * "nat" maps to randomuser.me/api?nat=(au | us | fr)
      * "count" maps to randomuser.me/api?results=<integer>
      */
+    @CrossOrigin(origins = {
+        "http://localhost:3000",
+        "http://localhost:5173"
+    })
     @GetMapping("/user")
     public RandomUserResponse getUser(
         @RequestParam(value="nat", defaultValue = "au") String nationality,
