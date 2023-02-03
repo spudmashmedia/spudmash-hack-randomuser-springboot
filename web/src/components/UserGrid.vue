@@ -1,6 +1,6 @@
 <script>
 import UserCard from './UserCard.vue';
-const API_URL = `http://localhost:5000/user`;
+const API_URL = `http://localhost:3001`;
 
 export default {
   components: { UserCard },
@@ -11,7 +11,7 @@ export default {
   }),
   methods: {
     async fetchData() {
-      const url = `${API_URL}?count=100`;
+      const url = `${API_URL}/user?count=100`;
       let res = await (await fetch(url)).json();
       this.users = res?.results;
       this.info = res?.info;
