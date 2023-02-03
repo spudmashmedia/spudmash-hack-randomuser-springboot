@@ -41,7 +41,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 | Service | Url                                                   | Description              |
 | ------- | ----------------------------------------------------- | ------------------------ |
-| api     | http://localhost:5000/user?count=<int>&nat=<au,us,fr> | Java Springboot REST API|
+| api     | http://localhost:3001/user?count=<int>&nat=<au,us,fr> | Java Springboot REST API|
 | web     | http://localhost:3000                                 | Web front end            |
 
 
