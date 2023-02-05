@@ -1,25 +1,26 @@
 package com.spudmash.randomuserapi.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.spudmash.randomuserapi.api.models.RandomUserResponse;
-
-import reactor.core.publisher.Mono;
+import com.spudmash.randomuserapi.api.Dto.ErrorResponse;
+import com.spudmash.randomuserapi.api.Dto.UserApiResponse;
+import com.spudmash.randomuserapi.api.Dto.UserDto;
+import com.spudmash.randomuserapi.api.services.UserService.IUserService;
+import com.spudmash.randomuserapi.api.services.UserService.models.RandomUserResponse;
 
 @RestController
 public class UserController {
 
-    private final String API_HOST = "https://randomuser.me";
+    // Dependency Injection of UserService
+    @Autowired
+    private IUserService userService;
 
-    private WebClient getWebClient = WebClient.create(API_HOST);
-
-    Logger logger = LoggerFactory.getLogger(UserController.class);
+    public UserController() {
+    }
 
     /*
      * NOTE: query string params
@@ -27,24 +28,28 @@ public class UserController {
      * "count" maps to randomuser.me/api?results=<integer>
      */
     @CrossOrigin(origins = {
-        "http://localhost:3000",
-        "http://localhost:5173"
+            "http://localhost:3000",
+            "http://localhost:5173",
+            "http://localhost:8081"
     })
     @GetMapping("/user")
-    public RandomUserResponse getUser(
-        @RequestParam(value="nat", defaultValue = "au") String nationality,
-        @RequestParam(value="count", defaultValue="1") String count){
+    public UserApiResponse getUser(
+            @RequestParam(value = "nat", defaultValue = "au") String nationality,
+            @RequestParam(value = "count", defaultValue = "1") String count) {
 
-        return getWebClient
-                .get()
-                .uri(uriBuilder -> uriBuilder.path("/api")
-                    .queryParam("nat", nationality)
-                    .queryParam("results", count)
-                    .build())
-                .retrieve()
-                .bodyToMono(RandomUserResponse.class)
-                .doOnError(error -> logger.error("Something went wrong with data retrieval {}", error.getMessage()))
-                .onErrorResume(error -> Mono.just(new RandomUserResponse("Something went wrong")))
-                .block();
+        UserApiResponse wipResponse = new UserApiResponse();
+
+        try {
+            RandomUserResponse response = userService.getRandomUserResponse(nationality, count);
+            // Datamap
+            var data = response.getResults();
+            wipResponse.setData(UserDto.ConvertUserModelToUserDto(data)); // Datamapping using static function on DTO
+        } catch (Exception e) {
+            ErrorResponse errorWip = new ErrorResponse();
+            errorWip.setMessage(e.getMessage());
+            wipResponse.setError(errorWip);
+        }
+
+        return wipResponse;
     }
 }

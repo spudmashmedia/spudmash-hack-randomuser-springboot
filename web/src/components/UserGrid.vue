@@ -13,8 +13,7 @@ export default {
     async fetchData() {
       const url = `${API_URL}/user?count=100`;
       let res = await (await fetch(url)).json();
-      this.users = res?.results;
-      this.info = res?.info;
+      this.users = res?.data;
       this.error = res?.error;
     },
   },
@@ -29,7 +28,7 @@ export default {
     <div v-if="!users">Loading...</div>
     <pre v-else>
         <ul class="flex flex-row-2 flex-wrap gap-10">
-            <li v-for="user in this.users" :key="user?.id?.value">
+            <li v-for="user in this.users" :key="user?.id">
                 <user-card :user="user" />
             </li>
         </ul>

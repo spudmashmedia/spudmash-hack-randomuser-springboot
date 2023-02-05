@@ -1,4 +1,4 @@
-package com.spudmash.randomuserapi.api.models;
+package com.spudmash.randomuserapi.api.services.UserService.models;
 
 public class Info {
     private String seed;
