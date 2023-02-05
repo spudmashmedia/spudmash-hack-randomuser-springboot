@@ -2,15 +2,15 @@ package com.spudmash.randomuserapi.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.spudmash.randomuserapi.api.Dto.ErrorResponse;
 import com.spudmash.randomuserapi.api.Dto.UserApiResponse;
 import com.spudmash.randomuserapi.api.Dto.UserDto;
-import com.spudmash.randomuserapi.api.services.UserService.*;
-import com.spudmash.randomuserapi.api.services.UserService.models.*;
+import com.spudmash.randomuserapi.api.services.UserService.IUserService;
+import com.spudmash.randomuserapi.api.services.UserService.models.RandomUserResponse;
 
 @RestController
 public class UserController {

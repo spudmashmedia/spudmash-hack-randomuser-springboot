@@ -79,37 +79,55 @@ public class UserDto {
     public static UserDto ConvertUserModelToUserDto(User u) {
         var wipUserDto = new UserDto();
 
+        if (u == null) {
+            return null;
+        }
+
         var id = u.getId();
         wipUserDto.setId(id.getValue());
 
         var usr = u.getName();
         wipUserDto.setFirstName(usr.getFirst());
         wipUserDto.setLastName(usr.getLast());
-
         wipUserDto.setEmail(u.getEmail());
 
         var loc = u.getLocation();
-        wipUserDto.setCountry(loc.getCountry());
+        if (loc != null)
+            wipUserDto.setCountry(loc.getCountry());
 
         var picture = u.getPicture();
-        wipUserDto.setProfileImageUrl(picture.getLarge());
-        wipUserDto.setThumbnailImageUrl(picture.getThumbnail());
+        if (picture != null) {
+            wipUserDto.setProfileImageUrl(picture.getLarge());
+            wipUserDto.setThumbnailImageUrl(picture.getThumbnail());
+        }
 
         return wipUserDto;
     }
 
-    public static ArrayList<UserDto> ConvertUserModelToUserDto(ArrayList<User> data){
+    public static ArrayList<UserDto> ConvertUserModelToUserDto(ArrayList<User> data) {
         var wipUserDtoList = new ArrayList<UserDto>();
-        for(User u: data) {
+
+        // fast fail
+        if (data == null || data.size() == 0) {
+            return wipUserDtoList;
+        }
+
+        for (User u : data) {
             wipUserDtoList.add(UserDto.ConvertUserModelToUserDto(u));
         }
 
         return wipUserDtoList;
     }
-    
-    public static ArrayList<UserDto> ConvertUserModelToUserDto(User[] data){
+
+    public static ArrayList<UserDto> ConvertUserModelToUserDto(User[] data) {
         var wipUserDtoList = new ArrayList<UserDto>();
-        for(User u: data) {
+
+        // fast fail
+        if (data == null || data.length == 0) {
+            return wipUserDtoList;
+        }
+
+        for (User u : data) {
             wipUserDtoList.add(UserDto.ConvertUserModelToUserDto(u));
         }
 
