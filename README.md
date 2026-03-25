@@ -1,4 +1,5 @@
 # Random User(s) with VueJS + Vite + Java Springboot REST API
+[![My Skills]( https://skillicons.dev/icons?i=java,spring,vue,vite,tailwind)](https://skillicons.dev)
 
 A VueJS + Java Springboot API app that demonstrates
 
